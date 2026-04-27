@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Edits - Video Editing & Advertising</title>
+    <style>
+        /* Modern Font Import (Poppins) */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+
+        /* Basic Reset and Setup */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: #0a0a0a; color: #f5f5f5; overflow-x: hidden; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #4a00e0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8e2de2; }
+
+        /* Header and Navigation */
+        header { position: fixed; top: 0; left: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: background 0.3s ease; }
+        header.scrolled { background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #fff; text-decoration: none; text-shadow: 0 0 5px #8e2de2, 0 0 10px #8e2de2; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: #f5f5f5; text-decoration: none; font-weight: 600; transition: color 0.3s, text-shadow 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #8e2de2; text-shadow: 0 0 8px #8e2de2; }
+        #menu-toggle { display: none; font-size: 2rem; cursor: pointer; }
+
+        /* General Section Styling */
+        .section { min-height: 80vh; padding: 8rem 5% 4rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .section-title { font-size: 3rem; font-weight: 700; margin-bottom: 3rem; position: relative; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: linear-gradient(90deg, #8e2de2, #4a00e0); }
+
+        /* Hero Section */
+        #home { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; position: relative; padding: 0 5%; }
+        #particles-js { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .hero-content { z-index: 2; }
+        .hero-content h1 { font-size: 5rem; font-weight: 900; color: #fff; text-transform: uppercase; animation: neon-glow 1.5s ease-in-out infinite alternate; }
+        .hero-content p { font-size: 1.5rem; margin-top: 1rem; font-weight: 300; letter-spacing: 1px; color: #ddd; }
+        @keyframes neon-glow { from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #8e2de2, 0 0 30px #8e2de2; } to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #4a00e0, 0 0 40px #4a00e0; } }
+        
+        /* About Section */
+        #about p { max-width: 800px; font-size: 1.2rem; line-height: 1.8; color: #ccc; }
+
+        /* Services & Portfolio Cards */
+        #services .services-container, #portfolio .portfolio-container { display: grid; gap: 2rem; width: 100%; max-width: 1200px; margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); }
+        .service-card { background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 2.5rem 2rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 0 20px rgba(142, 45, 226, 0.5); }
+        .service-card h3 { font-size: 1.8rem; margin-bottom: 1rem; color: #fff; }
+        .service-card p { font-size: 1rem; color: #ccc; line-height: 1.6; }
+        
+        /* --- UPDATED: Special Offer Section Styles --- */
+        .offer-link-wrapper { text-decoration: none; color: inherit; display: block; max-width: 500px; width: 100%; }
+        .offer-card { background: rgba(30, 30, 30, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 2px solid #8e2de2; border-radius: 15px; padding: 2.5rem; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer; }
+        .offer-link-wrapper:hover .offer-card { transform: translateY(-10px) scale(1.02); box-shadow: 0 0 25px rgba(142, 45, 226, 0.6), 0 0 40px rgba(74, 0, 224, 0.4); }
+        .social-icons { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .social-icons svg { width: 40px; height: 40px; fill: #f5f5f5; transition: fill 0.3s ease; }
+        .offer-link-wrapper:hover .social-icons svg { fill: #8e2de2; }
+        .offer-details h3 { font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
+        .offer-details p { font-size: 1.1rem; color: #ccc; margin-bottom: 1.5rem; }
+        .price { display: flex; justify-content: center; align-items: baseline; gap: 1rem; }
+        .new-price { font-size: 2.5rem; font-weight: 700; color: #fff; text-shadow: 0 0 10px #8e2de2; }
+        .old-price { font-size: 1.5rem; font-weight: 400; color: #888; text-decoration: line-through; }
+        /* --- End of Updated Styles --- */
+
+        /* Portfolio Section */
+        .portfolio-item { background: rgba(30, 30, 30, 0.4); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; text-align: center; }
+        .portfolio-item:hover { transform: translateY(-10px); box-shadow: 0 0 25px rgba(142, 45, 226, 0.5); }
+        .portfolio-item video { width: 100%; height: auto; display: block; }
+        .portfolio-item h3 { padding: 1.5rem; font-size: 1.5rem; font-weight: 600; margin: 0; }
+        
+        /* Contact Section */
+        #contact p { font-size: 1.2rem; margin-bottom: 2rem; }
+        .contact-btn { display: inline-block; background: linear-gradient(90deg, #8e2de2, #4a00e0); color: #fff; padding: 1rem 3rem; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 5px 15px rgba(142, 45, 226, 0.4); }
+        .contact-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(142, 45, 226, 0.6); }
+        
+        /* Footer */
+        footer { text-align: center; padding: 2rem 0; background-color: #000; color: #666; font-size: 0.9rem; }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            #menu-toggle { display: block; z-index: 1001; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); flex-direction: column; justify-content: center; align-items: center; transition: transform 0.4s ease-in-out; }
+            .nav-links.active { transform: translateX(-100%); }
+            .hero-content h1 { font-size: 3rem; } .hero-content p { font-size: 1.2rem; } .section-title { font-size: 2.5rem; }
+            #services .services-container, #portfolio .portfolio-container, .offer-link-wrapper { grid-template-columns: 1fr; max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="#home" class="logo">Apex Edits</a>
+        <div id="menu-toggle">☰</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#offer">Special Offer</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home">
+            <div id="particles-js"></div>
+            <div class="hero-content">
+                <h1>Apex Edits</h1>
+                <p>We turn ideas into visual power</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2 class="section-title">About Us</h2>
+            <p>Apex Edits is a creative agency specializing in video editing and advertising campaigns. We are a team of passionate storytellers and visual artists dedicated to crafting high-end, cinematic content that captivates audiences and elevates brands.</p>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <h3>Video Editing</h3>
+                    <p>Professional editing for social media Reels, engaging YouTube content, and high-impact advertisements. We focus on dynamic pacing, stunning color grading, and crisp sound design.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Advertising Campaigns</h3>
+                    <p>From concept to completion, we create full-scale advertising campaigns that resonate with your target audience and deliver measurable success across all digital platforms.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Social Media Content</h3>
+                    <p>We produce bespoke, platform-optimized content designed to stop the scroll, boost engagement, and build a loyal community around your brand.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ==================== UPDATED SPECIAL OFFER SECTION ==================== -->
+        <section id="offer" class="section">
+            <h2 class="section-title">Special Offer</h2>
+            <!-- The entire card is now a clickable link -->
+            <a href="https://m.me/61588665968337" target="_blank" rel="noopener noreferrer" class="offer-link-wrapper">
+                <div class="offer-card">
+                    <div class="social-icons">
+                        <!-- Instagram Icon -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163m0-2.163C8.74 0 8.333.011 7.053.069 2.59.245.245 2.59.069 7.053.011 8.333 0 8.74 0 12s.011 3.667.069 4.947c.176 4.46 2.532 6.816 7.004 6.991C8.333 23.989 8.74 24 12 24s3.667-.011 4.947-.069c4.472-.175 6.828-2.531 7.004-6.991.058-1.28.069-1.687.069-4.947s-.011-3.667-.069-4.947C21.755 2.59 19.4 2.45 14.947.069 13.667.011 13.26 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
+                        <!-- Facebook Icon -->
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0h-21.35C.59 0 0 .59 0 1.325v21.35C0 23.41.59 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.735 0 1.325-.59 1.325-1.325V1.325C24 .59 23.41 0 22.675 0z"/></svg>
+                    </div>
+                    <div class="offer-details">
+                        <h3>Professional Saver Bundle</h3>
+                        <p>Package of 5 videos (50 seconds) + 4 posts</p>
+                        <div class="price">
+                            <span class="new-price">EGP 450</span>
+                            <span class="old-price">EGP 750</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </section>
+        <!-- ================= END OF UPDATED SECTION ================= -->
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section">
+            <h2 class="section-title">Our Portfolio</h2>
+            <div class="portfolio-container">
+                <div class="portfolio-item">
+                    <video src="14122040_3840_2160_24fps_1.mp4" controls preload="metadata"></video>
+                    <h3>Project 1</h3>
+                </div>
+                <div class="portfolio-item">
+                    <video src="Black Video_1.mp4" controls preload="metadata"></video>
+                    <h3>Project 2</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>Ready to create something powerful? Let's talk.</p>
+            <a href="https://www.facebook.com/profile.php?id=61588665968337" class="contact-btn" target="_blank" rel="noopener noreferrer">
+                Contact Us on Facebook
+            </a>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Apex Edits. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => { window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled'); });
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+            menuToggle.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+            document.querySelectorAll('#nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('active'); }); });
+            const sections = document.querySelectorAll('main > section');
+            const navLi = document.querySelectorAll('.nav-links a');
+            window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (pageYOffset >= sectionTop - 150) { current = section.getAttribute('id'); } }); navLi.forEach(a => { a.classList.remove('active'); if (a.getAttribute('href') == '#' + current) { a.classList.add('active'); } }); });
+            particlesJS("particles-js", { "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#8e2de2" }, "shape": { "type": "circle", }, "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, } }, "line_linked": { "enable": true, "distance": 150, "color": "#4a00e0", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_opacity": 1 }, "repulse": { "distance": 200 }, "push": { "particles_nb": 4 } } }, "retina_detect": true });
+        });
+    </script>
+
+</body>
+</html>
